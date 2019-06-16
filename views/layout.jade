@@ -15,15 +15,17 @@ html(lang="en")
      #navbarSupportedContent.collapse.navbar-collapse
        ul.navbar-nav.mr-auto
         li.nav-item(class=(title=='Home'? 'active':''))
-         a.nav-link(href='/') Home
+         a.nav-link(href='/') Dashboard
           span.sr-only (current)
-        li.nav-item(class=(title=='Register'? 'active':''))
-         a.nav-link(href='/users/register') Register
-        li.nav-item(class=(title=='Login'? 'active':''))
-         a.nav-link(href='/users/login') Login
+        if !user
+         li.nav-item(class=(title=='Register'? 'active':''))
+          a.nav-link(href='/users/register') Register
+         li.nav-item(class=(title=='Login'? 'active':''))
+          a.nav-link(href='/users/login') Login
        ul.nav.navbar-nav.navbar-right
-        li.nav-item
-         a.nav-link(href='/users/logout') Logout
+        if user
+         li.nav-item
+          a.nav-link(href='/users/logout') Logout
     .container
      != messages()
      block content

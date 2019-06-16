@@ -83,6 +83,8 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
+
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -93,5 +95,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+app.get('*', function(req, res, next){
+  res.locals.user = req.user || null;
+  next();
+});
 module.exports = app;
