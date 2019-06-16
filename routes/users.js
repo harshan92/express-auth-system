@@ -5,6 +5,7 @@ var uploads=multer({dest:'./uploads'});
 var User=require('../models/user');
 var passport=require('passport');
 var LocalStrategy=require('passport-local').Strategy;
+var flash=require('connect-flash');
 
 
 /* GET users listing. */
@@ -25,7 +26,7 @@ router.post('/login',
   function(req, res) {
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
-    res.flash('success', 'You are logged in...');
+    req.flash('success', 'You are logged in...');
      res.redirect('/');
   });
 
@@ -109,5 +110,11 @@ router.post('/register',uploads.single('profileImage'),function(req, res, next) 
      res.redirect('/');
   }
 });
+
+router.get('/logout',function(req, res){
+  req.logout();
+  req.flash('success', 'You are now logged out..');
+   res.redirect('/users/login');
+})
 
 module.exports = router;
